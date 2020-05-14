@@ -33,19 +33,19 @@
 			<image v-if="item.titlepic" :src="item.titlepic" style="height: 350rpx;" class="rounded w-100"></image>
 			<!-- 图标按钮 -->
 			<view class="flex align-center">
-				<view class="flex align-center justify-center flex-1">
+				<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main">
 					<text class="iconfont icon-dianzan2 mr-2"></text>
 					<text>{{item.support.support_count}}</text>
 				</view>
-				<view class="flex align-center justify-center flex-1">
+				<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main">
 					<text class="iconfont icon-cai mr-2"></text>
 					<text>{{item.support.unsupport_count}}</text>
 				</view>
-				<view class="flex align-center justify-center flex-1">
+				<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main">
 					<text class="iconfont icon-pinglun2 mr-2"></text>
 					<text>{{item.comment_count}}</text>
 				</view>
-				<view class="flex align-center justify-center flex-1">
+				<view class="flex align-center justify-center flex-1 animated faster" hover-class="jello text-main">
 					<text class="iconfont icon-fenxiang mr-2"></text>
 					<text>{{item.share_num}}</text>
 				</view>
