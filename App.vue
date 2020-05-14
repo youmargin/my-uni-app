@@ -22,4 +22,6 @@
 	@import "./common/iconfont.css";
     /* 引入动画css */
     @import "./common/animate.css";
+	/* 自定义样式库 */
+	@import "./common/free.css";
 </style>

@@ -1,11 +1,52 @@
 <template>
-	<view class="content">
-		<image class="logo" src="/static/logo.png"></image>
-		<view class="text-area">
-			<text class="title">{{title}}</text><br>
+	<view>
+		
+		<!-- 列表样式 -->
+		<view class="p-2">
+			<!-- 头像昵称 | 关注按钮 -->
+			<view class="flex align-center justify-between">
+				<view class="flex align-center">
+					<!-- 头像 -->
+					<image class="rounded-circle" src="/static/default.jpg" style="width: 65rpx;height: 65rpx;margin-right: 20rpx;" lazy-load></image>
+					<!-- 昵称发布时间 -->
+					<view>
+						<view style="font-size: 30rpx;line-height: 1.5;">昵称</view>
+						<text style="color: #9D9589;font-size: 25rpx;line-height: 1.5;">2019-10-20 下午04:30</text>
+					</view>
+				</view>
+				<!-- 按钮 -->
+				<view class="flex align-center justify-center" style="width: 90rpx;height: 50rpx;border-radius: 5rpx;background-color: #FF4A6A;color: #FFFFFF;">
+					关注
+				</view>
+			</view>
+			<!-- 标题 -->
+			<view style="font-size: 30rpx; margin: 10rpx 0;">
+				我是标题
+			</view>
+			<!-- 图片 -->
+			<image src="/static/demo/datapic/11.jpg" style="height: 350rpx;width: 100%;border-radius: 5rpx;"></image>
+			<!-- 图标按钮 -->
+			<view class="flex align-center">
+				<view class="flex align-center justify-center flex-1">
+					<text class="iconfont icon-dianzan2" style="margin-right: 20rpx;"></text>
+					<text>1</text>
+				</view>
+				<view class="flex align-center justify-center flex-1">
+					<text class="iconfont icon-cai" style="margin-right: 20rpx;"></text>
+					<text>1</text>
+				</view>
+				<view class="flex align-center justify-center flex-1">
+					<text class="iconfont icon-pinglun2" style="margin-right: 20rpx;"></text>
+					<text>1</text>
+				</view>
+				<view class="flex align-center justify-center flex-1">
+					<text class="iconfont icon-fenxiang" style="margin-right: 20rpx;"></text>
+					<text>1</text>
+				</view>
+			</view>
 		</view>
-			<text class="iconfont icon-remen" style="font-size: 100rpx;"></text>
-			<view class="animated faster" hover-class="pulse">点击效果</view>
+		
+		
 	</view>
 </template>
 
@@ -13,7 +54,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello，你好吗？'
+				
 			}
 		},
 		onLoad() {
@@ -26,29 +67,5 @@
 </script>
 
 <style>
-	.content {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.logo {
-		height: 200rpx;
-		width: 200rpx;
-		margin-top: 200rpx;
-		margin-left: auto;
-		margin-right: auto;
-		margin-bottom: 50rpx;
-	}
-
-	.text-area {
-		display: flex;
-		justify-content: center;
-	}
-
-	.title {
-		font-size: 36rpx;
-		color: #8f8f94;
-	}
+	
 </style>
