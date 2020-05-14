@@ -38,7 +38,7 @@
                         newstime: "2019-10-20 下午04:30",
                         isFollow: false,
                         title: "我是标题2",
-                        titlepic: "/static/demo/datapic/11.jpg",
+                        titlepic: "",
                         support: {
                             type: "support",
                             support_count: 1,

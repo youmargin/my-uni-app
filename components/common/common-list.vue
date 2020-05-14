@@ -4,31 +4,33 @@
 			<view class="flex align-center justify-between">
 				<view class="flex align-center">
 					<!-- 头像 -->
-					<image class="rounded-circle mr-2" 
-					:src="item.userpic" 
-					style="width: 65rpx;height: 65rpx;" 
+					<image class="rounded-circle mr-2"
+					:src="item.userpic"
+					style="width: 65rpx;height: 65rpx;"
 					lazy-load></image>
 					<!-- 昵称发布时间 -->
 					<view>
 						<view class="font" style="line-height: 1.5;">
 							{{item.username}}
 						</view>
-						<text class="font-sm text-light-muted" 
+						<text class="font-sm text-light-muted"
 						style="line-height: 1.5;">
 							{{item.newstime}}
 						</text>
 					</view>
 				</view>
 				<!-- 按钮 -->
-				<view class="flex align-center justify-center rounded bg-main text-white" style="width: 90rpx;height: 50rpx;">
+				<view @click="follow" v-if="!item.isFollow"
+					  class="flex align-center justify-center rounded bg-main text-white animated faster"
+					  style="width: 90rpx;height: 50rpx;"
+					  hover-class="jello">
 					关注
 				</view>
 			</view>
 			<!-- 标题 -->
 			<view class="font-md my-1">{{item.title}}</view>
 			<!-- 图片 -->
-			<image :src="item.titlepic" 
-			style="height: 350rpx;" class="rounded w-100"></image>
+			<image v-if="item.titlepic" :src="item.titlepic" style="height: 350rpx;" class="rounded w-100"></image>
 			<!-- 图标按钮 -->
 			<view class="flex align-center">
 				<view class="flex align-center justify-center flex-1">
