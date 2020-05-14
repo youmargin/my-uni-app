@@ -5,6 +5,7 @@
 			<text class="title">{{title}}</text><br>
 		</view>
 			<text class="iconfont icon-remen" style="font-size: 100rpx;"></text>
+			<view class="animated faster" hover-class="pulse">点击效果</view>
 	</view>
 </template>
 

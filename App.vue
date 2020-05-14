@@ -17,4 +17,6 @@
 	@import "./common/uni.css";
 	/* 引入图标css */
 	@import "./common/iconfont.css";
+    /* 引入动画css */
+    @import "./common/animate.css";
 </style>
