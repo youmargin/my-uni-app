@@ -1,7 +1,7 @@
 <template>
     <view>
 		<block v-for="(item,index) in list" :key="index">
-        <common-list :item="item" :index="index" @follow="follow1"></common-list>
+        <common-list :item="item" :index="index" @follow="follow1" @doSupport="doSupport"></common-list>
 		<divider></divider>
 		</block>
 
@@ -40,7 +40,7 @@
                         title: "我是标题2",
                         titlepic: "",
                         support: {
-                            type: "support",
+                            type: "unsupport",
                             support_count: 1,
                             unsupport_count: 2
                         },
@@ -59,6 +59,28 @@
 				console.log(e);
 				this.list[e].isFollow = true
 				uni.showToast({ title: '关注成功' })
+			},
+			// 顶踩操作
+			doSupport(e){
+				// 拿到当前对象
+				let item = this.list[e.index]
+				let msg = e.type === 'support' ? '顶' : '踩'
+				// 之前没有操作过
+				if (item.support.type === '') {
+					item.support[e.type+'_count']++
+				} else if (item.support.type ==='support' && e.type === 'unsupport') {
+					// 顶 - 1
+					item.support.support_count--;
+					// 踩 + 1
+					item.support.unsupport_count++;
+				} else if(item.support.type ==='unsupport' && e.type === 'support'){ 					// 之前踩了
+					// 顶 + 1
+					item.support.support_count++;
+					// 踩 - 1
+					item.support.unsupport_count--;
+				}
+				item.support.type = e.type
+				uni.showToast({ title: msg + '成功' });
 			}
 		}
     }
