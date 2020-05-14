@@ -19,7 +19,7 @@
 	/*每个页面公共css */
 	@import "./common/uni.css";
 	/* 引入图标css */
-	@import "./common/iconfont.css";
+	@import "./common/icon.css";
     /* 引入动画css */
     @import "./common/animate.css";
 	/* 自定义样式库 */
