@@ -2,8 +2,9 @@
 	<view class="content">
 		<image class="logo" src="/static/logo.png"></image>
 		<view class="text-area">
-			<text class="title">{{title}}</text>
+			<text class="title">{{title}}</text><br>
 		</view>
+			<text class="iconfont icon-remen" style="font-size: 100rpx;"></text>
 	</view>
 </template>
 
@@ -11,7 +12,7 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello，你好'
+				title: 'Hello，你好吗？'
 			}
 		},
 		onLoad() {
