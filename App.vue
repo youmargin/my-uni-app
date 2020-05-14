@@ -2,9 +2,9 @@
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
-            //检测更新
-            //网络监听
-            //初始化数据
+			// 检测更新
+			// 网络监听
+			// 初始化数据
 		},
 		onShow: function() {
 			console.log('App Show')
@@ -17,13 +17,14 @@
 
 <style>
 	/*每个页面公共css */
+	/* 官方css库 */
 	@import "./common/uni.css";
-	/* 引入图标css */
+	/* 自定义图标库 */
 	@import "./common/icon.css";
-    /* 引入动画css */
-    @import "./common/animate.css";
+	/* 动画库 */
+	@import "./common/animate.css";
 	/* 自定义样式库 */
 	@import "./common/free.css";
-    /* 全局样式 */
-    @import "./common/common.css";
+	/* 全局样式 */
+	@import "./common/common.css";
 </style>
