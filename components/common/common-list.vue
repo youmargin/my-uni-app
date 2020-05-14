@@ -76,6 +76,8 @@
 			},
 			// 关注
 			follow(){
+				console.log('关注');
+				// 子组件不能直接修改props里的值
 				// 通知父组件
 				this.$emit('follow',this.index)
 			},

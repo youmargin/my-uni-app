@@ -1,7 +1,7 @@
 <template>
     <view>
 		<block v-for="(item,index) in list" :key="index">
-        <common-list :item="item" :index="index"></common-list>
+        <common-list :item="item" :index="index" @follow="follow1"></common-list>
 		<divider></divider>
 		</block>
 
@@ -53,7 +53,14 @@
         onLoad() {
 
         },
-        methods: {}
+        methods: {
+			// 关注
+			follow1(e){
+				console.log(e);
+				this.list[e].isFollow = true
+				uni.showToast({ title: '关注成功' })
+			}
+		}
     }
 </script>
 
