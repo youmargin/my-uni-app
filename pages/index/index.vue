@@ -10,6 +10,22 @@
 			@click="changeTab(index)">{{item.name}}</view>
 		</scroll-view>
 		
+		<swiper :duration="150" :current="tabIndex" @change="onChangeTab"
+				:style="'height:'+scrollH+'px;'">
+					<swiper-item v-for="(item,index) in newsList" :key="index">
+						<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'">
+							
+							<block v-for="(item2,index2) in item.list" :key="index2">
+								<!-- 列表样式 -->
+								<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
+								<!-- 全局分割线 -->
+								<divider></divider>
+							</block>
+							
+							
+						</scroll-view>
+					</swiper-item>
+				</swiper>
 		
 		<!-- <block v-for="(item,index) in list" :key="index"> -->
 			<!-- 列表样式 -->
@@ -101,9 +117,74 @@
 			}
 		},
 		onLoad() {
-
+			uni.getSystemInfo({
+				success:res=>{
+					this.scrollH = res.windowHeight - uni.upx2px(101)
+				}
+			})
+			// 根据选项生成列表
+			this.getData()
 		},
 		methods: {
+			// 获取数据
+			getData(){
+				var arr = []
+				for (let i = 0; i < this.tabBars.length; i++) {
+					let obj = {
+						list:[{
+							username:"昵称",
+							userpic:"/static/default.jpg",
+							newstime:"2019-10-20 下午04:30",
+							isFollow:false,
+							title:"我是标题",
+							titlepic:"/static/demo/datapic/11.jpg",
+							support:{
+								type:"support", // 顶
+								support_count:1,
+								unsupport_count:2
+							},
+							comment_count:2,
+							share_num:2
+						},
+						{
+							username:"昵称",
+							userpic:"/static/default.jpg",
+							newstime:"2019-10-20 下午04:30",
+							isFollow:false,
+							title:"我是标题",
+							titlepic:"",
+							support:{
+								type:"unsupport", // 踩
+								support_count:1,
+								unsupport_count:2
+							},
+							comment_count:2,
+							share_num:2
+						},
+						{
+							username:"昵称",
+							userpic:"/static/default.jpg",
+							newstime:"2019-10-20 下午04:30",
+							isFollow:false,
+							title:"我是标题",
+							titlepic:"",
+							support:{
+								type:"", // 未操作
+								support_count:1,
+								unsupport_count:2
+							},
+							comment_count:2,
+							share_num:2
+						}]
+					}
+					arr.push(obj)
+				}
+				this.newsList = arr
+			},
+			// 监听滑动
+			onChangeTab(e){
+				this.changeTab(e.detail.current)
+			},
 			// 切换选项
 			changeTab(index){
 				if (this.tabIndex === index) {
