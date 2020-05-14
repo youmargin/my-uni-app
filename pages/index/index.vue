@@ -2,7 +2,7 @@
     <view>
 		<block v-for="(item,index) in list" :key="index">
         <common-list :item="item" :index="index"></common-list>
-		<view style="height: 15rpx;background-color: #EEEEEE;"></view>
+		<divider></divider>
 		</block>
 
     </view>
