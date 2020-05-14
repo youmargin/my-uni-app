@@ -3,7 +3,8 @@
 		
 		<!-- 顶部选项卡 -->
 		<scroll-view scroll-x :scroll-into-view="scrollInto" scroll-with-animation
-		class="scroll-row border-bottom border-light-secondary">
+		class="scroll-row border-bottom border-light-secondary" 
+		style="height: 100rpx;">
 			<view v-for="(item,index) in tabBars" :key="index" 
 			class="scroll-row-item px-3 py-2 font-md" :id="'tab'+index"
 			:class="tabIndex === index?'text-main font-lg font-weight-bold':''"
@@ -11,28 +12,27 @@
 		</scroll-view>
 		
 		<swiper :duration="150" :current="tabIndex" @change="onChangeTab"
-				:style="'height:'+scrollH+'px;'">
-					<swiper-item v-for="(item,index) in newsList" :key="index">
-						<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'">
-							
-							<block v-for="(item2,index2) in item.list" :key="index2">
-								<!-- 列表样式 -->
-								<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
-								<!-- 全局分割线 -->
-								<divider></divider>
-							</block>
-							
-							
-						</scroll-view>
-					</swiper-item>
-				</swiper>
+		:style="'height:'+scrollH+'px;'">
+			<swiper-item v-for="(item,index) in newsList" :key="index">
+				<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'"
+				@scrolltolower="loadmore(index)">
+					<!-- 列表 -->
+					<block v-for="(item2,index2) in item.list" :key="index2">
+						<!-- 列表样式 -->
+						<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
+						<!-- 全局分割线 -->
+						<divider></divider>
+					</block>
+					<!-- 上拉加载 -->
+					<view class="flex align-center justify-center py-3">
+						<text class="font text-light-muted"
+						>{{item.loadmore}}</text>
+					</view>
+				</scroll-view>
+			</swiper-item>
+		</swiper>
 		
-		<!-- <block v-for="(item,index) in list" :key="index"> -->
-			<!-- 列表样式 -->
-			<!-- <common-list :item="item" :index="index" @follow="follow" @doSupport="doSupport"></common-list> -->
-			<!-- 全局分割线 -->
-			<!-- <divider></divider> -->
-		<!-- </block> -->
+		
 		
 	</view>
 </template>
@@ -45,6 +45,8 @@
 		},
 		data() {
 			return {
+				// 列表高度
+				scrollH:600,
 				// 顶部选项卡
 				scrollInto:"",
 				tabIndex:0,
@@ -67,53 +69,7 @@
 				}, {
 				    name: '本地',
 				}],
-				list:[
-					{
-						username:"昵称",
-						userpic:"/static/default.jpg",
-						newstime:"2019-10-20 下午04:30",
-						isFollow:false,
-						title:"我是标题",
-						titlepic:"/static/demo/datapic/11.jpg",
-						support:{
-							type:"support", // 顶
-							support_count:1,
-							unsupport_count:2
-						},
-						comment_count:2,
-						share_num:2
-					},
-					{
-						username:"昵称",
-						userpic:"/static/default.jpg",
-						newstime:"2019-10-20 下午04:30",
-						isFollow:false,
-						title:"我是标题",
-						titlepic:"",
-						support:{
-							type:"unsupport", // 踩
-							support_count:1,
-							unsupport_count:2
-						},
-						comment_count:2,
-						share_num:2
-					},
-					{
-						username:"昵称",
-						userpic:"/static/default.jpg",
-						newstime:"2019-10-20 下午04:30",
-						isFollow:false,
-						title:"我是标题",
-						titlepic:"",
-						support:{
-							type:"", // 未操作
-							support_count:1,
-							unsupport_count:2
-						},
-						comment_count:2,
-						share_num:2
-					}
-				]
+				newsList:[]
 			}
 		},
 		onLoad() {
@@ -130,7 +86,10 @@
 			getData(){
 				var arr = []
 				for (let i = 0; i < this.tabBars.length; i++) {
+					// 生成列表模板
 					let obj = {
+						// 1.上拉加载更多  2.加载中... 3.没有更多了
+						loadmore:"上拉加载更多",
 						list:[{
 							username:"昵称",
 							userpic:"/static/default.jpg",
@@ -220,14 +179,25 @@
 				}
 				item.support.type = e.type
 				uni.showToast({ title: msg + '成功' });
+			},
+			// 上拉加载更多
+			loadmore(index){
+				// 拿到当前列表
+				let item = this.newsList[index]
+				// 修改当前列表加载状态
+				item.loadmore = '加载中...'
+				// 模拟数据请求
+				setTimeout(()=>{
+					// 加载数据
+					item.list = [...item.list,...item.list]
+					// 恢复加载状态
+					item.loadmore = '上拉加载更多'
+				},2000)
 			}
 		}
 	}
 </script>
 
 <style>
-	//去掉滚动套
-	scroll-view [style*="overflow"]::-webkit-scrollbar {  
-	  display: none;  
-	} 
+	
 </style>
