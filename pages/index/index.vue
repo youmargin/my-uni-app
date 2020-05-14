@@ -145,7 +145,8 @@
 </script>
 
 <style>
-scroll-view [style*="overflow"]::-webkit-scrollbar {  
-  display: none;  
-} 
+	//去掉滚动套
+	scroll-view [style*="overflow"]::-webkit-scrollbar {  
+	  display: none;  
+	} 
 </style>
