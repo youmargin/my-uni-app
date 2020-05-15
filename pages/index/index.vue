@@ -16,18 +16,18 @@
 			<swiper-item v-for="(item,index) in newsList" :key="index">
 				<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'"
 				@scrolltolower="loadmore(index)">
-					<!-- 列表 -->
+				
 					<template v-if="item.list.length > 0">
+						<!-- 列表 -->
 						<block v-for="(item2,index2) in item.list" :key="index2">
 							<!-- 列表样式 -->
 							<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
 							<!-- 全局分割线 -->
 							<divider></divider>
 						</block>
-		
 						<!-- 上拉加载 -->
 						<load-more :loadmore="item.loadmore"></load-more>
-						</template>
+					</template>
 					<!-- 无数据 -->
 					<template v-else>
 						<no-thing></no-thing>
@@ -35,20 +35,66 @@
 				</scroll-view>
 			</swiper-item>
 		</swiper>
-			
+		
+		
 		
 	</view>
 </template>
 
 <script>
+	const demo = [{
+		username:"昵称",
+		userpic:"/static/default.jpg",
+		newstime:"2019-10-20 下午04:30",
+		isFollow:false,
+		title:"我是标题",
+		titlepic:"/static/demo/datapic/11.jpg",
+		support:{
+			type:"support", // 顶
+			support_count:1,
+			unsupport_count:2
+		},
+		comment_count:2,
+		share_num:2
+	},
+	{
+		username:"昵称",
+		userpic:"/static/default.jpg",
+		newstime:"2019-10-20 下午04:30",
+		isFollow:false,
+		title:"我是标题",
+		titlepic:"",
+		support:{
+			type:"unsupport", // 踩
+			support_count:1,
+			unsupport_count:2
+		},
+		comment_count:2,
+		share_num:2
+	},
+	{
+		username:"昵称",
+		userpic:"/static/default.jpg",
+		newstime:"2019-10-20 下午04:30",
+		isFollow:false,
+		title:"我是标题",
+		titlepic:"",
+		support:{
+			type:"", // 未操作
+			support_count:1,
+			unsupport_count:2
+		},
+		comment_count:2,
+		share_num:2
+	}];
+	
+	
 	import commonList from '@/components/common/common-list.vue';
-	import loadMore from '@/components/common/load-more.vue'
-	import noThing from '@/components/common/no-thing.vue';
+	import loadMore from '@/components/common/load-more.vue';
 	export default {
 		components: {
 			commonList,
-			loadMore,
-			noThing
+			loadMore
 		},
 		data() {
 			return {
@@ -109,51 +155,10 @@
 					let obj = {
 						// 1.上拉加载更多  2.加载中... 3.没有更多了
 						loadmore:"上拉加载更多",
-						list:[{
-							username:"昵称",
-							userpic:"/static/default.jpg",
-							newstime:"2019-10-20 下午04:30",
-							isFollow:false,
-							title:"我是标题",
-							titlepic:"/static/demo/datapic/11.jpg",
-							support:{
-								type:"support", // 顶
-								support_count:1,
-								unsupport_count:2
-							},
-							comment_count:2,
-							share_num:2
-						},
-						{
-							username:"昵称",
-							userpic:"/static/default.jpg",
-							newstime:"2019-10-20 下午04:30",
-							isFollow:false,
-							title:"我是标题",
-							titlepic:"",
-							support:{
-								type:"unsupport", // 踩
-								support_count:1,
-								unsupport_count:2
-							},
-							comment_count:2,
-							share_num:2
-						},
-						{
-							username:"昵称",
-							userpic:"/static/default.jpg",
-							newstime:"2019-10-20 下午04:30",
-							isFollow:false,
-							title:"我是标题",
-							titlepic:"",
-							support:{
-								type:"", // 未操作
-								support_count:1,
-								unsupport_count:2
-							},
-							comment_count:2,
-							share_num:2
-						}]
+						list:[]
+					}
+					if (i < 2) {
+						obj.list = demo
 					}
 					arr.push(obj)
 				}
@@ -202,11 +207,9 @@
 			// 上拉加载更多
 			loadmore(index){
 				// 拿到当前列表
-				let item = this.newsList[index];
+				let item = this.newsList[index]
 				// 判断是否处于可加载状态（上拉加载更多）
-				if (item.loadmore !== '上拉加载更多'){
-					return;
-				} 
+				if (item.loadmore !== '上拉加载更多') return;
 				// 修改当前列表加载状态
 				item.loadmore = '加载中...'
 				// 模拟数据请求
@@ -215,7 +218,7 @@
 					item.list = [...item.list,...item.list]
 					// 恢复加载状态
 					item.loadmore = '上拉加载更多'
-				},1000)
+				},10000)
 			}
 		}
 	}

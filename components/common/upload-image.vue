@@ -8,6 +8,7 @@
 			<view class="uni-uploader-body">
 				<view class="uni-uploader__files">
 					<block v-for="(image,index) in imageList" :key="index">
+						
 						<view class="uni-uploader__file position-relative">
 							<image class="uni-uploader__img rounded" :src="image" :data-src="image" @tap="previewImage" mode="aspectFill"></image>
 							
@@ -15,6 +16,7 @@
 								<text class="iconfont icon-shanchu text-white"></text>
 							</view>
 						</view>
+						
 					</block>
 					<view class="uni-uploader__input-box rounded">
 						<view class="uni-uploader__input" @tap="chooseImage"></view>
@@ -98,7 +100,7 @@
 					count: this.imageList.length + this.count[this.countIndex] > 9 ? 9 - this.imageList.length : this.count[this.countIndex],
 					success: (res) => {
 						this.imageList = this.imageList.concat(res.tempFilePaths);
-						this.$emit('choose',this.imageList)
+						this.$emit('change',this.imageList)
 					},
 					fail: (err) => {
 						// #ifdef APP-PLUS
