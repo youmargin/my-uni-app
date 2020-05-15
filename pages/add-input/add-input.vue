@@ -5,6 +5,8 @@
 				所有人可见<text class="iconfont icon-shezhi"></text>
 			</view>
 		</uni-nav-bar>
+		<!-- 文本域 -->
+		<textarea v-model="content" placeholder="说一句话吧" class="uni-textarea px-2"/>
 	</view>
 </template>
 
