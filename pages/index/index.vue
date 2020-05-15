@@ -24,24 +24,22 @@
 						<divider></divider>
 					</block>
 					<!-- 上拉加载 -->
-					<view class="flex align-center justify-center py-3">
-						<text class="font text-light-muted"
-						>{{item.loadmore}}</text>
-					</view>
+					<load-more :loadmore="item.loadmore"></load-more>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
-		
-		
+			
 		
 	</view>
 </template>
 
 <script>
 	import commonList from '@/components/common/common-list.vue';
+	import loadMore from '@/components/common/load-more.vue'
 	export default {
 		components: {
-			commonList
+			commonList,
+			loadMore
 		},
 		data() {
 			return {
@@ -183,7 +181,11 @@
 			// 上拉加载更多
 			loadmore(index){
 				// 拿到当前列表
-				let item = this.newsList[index]
+				let item = this.newsList[index];
+				// 判断是否处于可加载状态（上拉加载更多）
+				if (item.loadmore !== '上拉加载更多'){
+					return;
+				} 
 				// 修改当前列表加载状态
 				item.loadmore = '加载中...'
 				// 模拟数据请求
@@ -192,7 +194,7 @@
 					item.list = [...item.list,...item.list]
 					// 恢复加载状态
 					item.loadmore = '上拉加载更多'
-				},2000)
+				},1000)
 			}
 		}
 	}
