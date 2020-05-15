@@ -85,6 +85,12 @@
 				url: '../search/search',
 			})
 		},
+		// 监听导航按钮点击事件
+		onNavigationBarButtonTap() {
+			uni.navigateTo({
+				url: '../add-input/add-input',
+			})
+		},
 		onLoad() {
 			uni.getSystemInfo({
 				success:res=>{
