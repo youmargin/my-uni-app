@@ -17,14 +17,21 @@
 				<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'"
 				@scrolltolower="loadmore(index)">
 					<!-- 列表 -->
-					<block v-for="(item2,index2) in item.list" :key="index2">
-						<!-- 列表样式 -->
-						<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
-						<!-- 全局分割线 -->
-						<divider></divider>
-					</block>
-					<!-- 上拉加载 -->
-					<load-more :loadmore="item.loadmore"></load-more>
+					<template v-if="item.list.length > 0">
+						<block v-for="(item2,index2) in item.list" :key="index2">
+							<!-- 列表样式 -->
+							<common-list :item="item2" :index="index2" @follow="follow" @doSupport="doSupport"></common-list>
+							<!-- 全局分割线 -->
+							<divider></divider>
+						</block>
+		
+						<!-- 上拉加载 -->
+						<load-more :loadmore="item.loadmore"></load-more>
+						</template>
+					<!-- 无数据 -->
+					<template v-else>
+						<no-thing></no-thing>
+					</template>
 				</scroll-view>
 			</swiper-item>
 		</swiper>
@@ -36,10 +43,12 @@
 <script>
 	import commonList from '@/components/common/common-list.vue';
 	import loadMore from '@/components/common/load-more.vue'
+	import noThing from '@/components/common/no-thing.vue';
 	export default {
 		components: {
 			commonList,
-			loadMore
+			loadMore,
+			noThing
 		},
 		data() {
 			return {
