@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 自定义导航 -->
-		<uni-nav-bar left-icon="back" left-text="返回" statusBar :border="false">
+		<uni-nav-bar left-icon="back" statusBar :border="false" @click-left="goBack">
 			<view class="flex align-center justify-center w-100">
 				所有人可见<text class="iconfont icon-shezhi"></text>
 			</view>
@@ -10,7 +10,8 @@
 		<textarea v-model="content" placeholder="说一句话吧" class="uni-textarea px-2"/>
 		
 		<!-- 多图上传 -->
-		<upload-image @change="changeImage"></upload-image>
+		<upload-image :show="show" ref="uploadImage" :list="imageList" @change="changeImage"></upload-image>
+		
 		<!-- 底部操作条 -->
 		<view class="fixed-bottom bg-white flex align-center" style="height: 85rpx;">
 			<view class="iconfont icon-caidan footer-btn animated"
@@ -18,7 +19,7 @@
 			<view class="iconfont icon-huati footer-btn animated"
 			hover-class="jello"></view>
 			<view class="iconfont icon-tupian footer-btn animated"
-			hover-class="jello"></view>
+			hover-class="jello" @click="iconClickEvent('uploadImage')"></view>
 			
 			<view class="bg-main text-white ml-auto flex justify-center align-center rounded mr-2 animated" hover-class="jello" style="width: 140rpx;height: 60rpx;">发送</view>
 		</view>
@@ -42,9 +43,13 @@
 				showBack:false
 			}
 		},
+		computed: {
+			show() {
+				return this.imageList.length > 0 
+			}
+		},
 		// 监听返回
 		onBackPress() {
-			console.log('--------------');
 			if ((this.content !== '' || this.imageList.length > 0) && !this.showBack ) {
 				uni.showModal({
 					content: '是否要保存为草稿？',
@@ -54,7 +59,11 @@
 					success: res => {
 						// 点击确认
 						if (res.confirm) {
-							this.store();
+							this.store()
+						} else { // 点击取消，清除缓存
+							uni.removeStorage({
+								key:"add-input"
+							})
 						}
 						// 手动执行返回
 						uni.navigateBack({ delta: 1 });
@@ -64,12 +73,37 @@
 				return true
 			}
 		},
+		// 页面加载时
+		onLoad() {
+			uni.getStorage({
+				key:"add-input",
+				success:(res)=>{
+					if (res.data) {
+						let result = JSON.parse(res.data)
+						this.content = result.content
+						this.imageList = result.imageList
+					}
+				}
+			})
+		},
 		methods: {
+			// 底部图片点击事件
+			iconClickEvent(e){
+				switch (e){
+					case 'uploadImage':
+					this.$refs.uploadImage.chooseImage()
+						break;
+				}
+			},
+			// 返回上一步
+			goBack(){
+				uni.navigateBack({ delta: 1 });
+			},
 			// 选中图片
 			changeImage(e){
 				this.imageList = e
 			},
-			// 保存到本地操作
+			// 保存操作
 			store(){
 				// 保存为本地存储
 				let obj = {
