@@ -54,7 +54,7 @@
 					success: res => {
 						// 点击确认
 						if (res.confirm) {
-							console.log('保存');
+							this.store();
 						}
 						// 手动执行返回
 						uni.navigateBack({ delta: 1 });
@@ -68,6 +68,18 @@
 			// 选中图片
 			changeImage(e){
 				this.imageList = e
+			},
+			// 保存到本地操作
+			store(){
+				// 保存为本地存储
+				let obj = {
+					content:this.content,
+					imageList:this.imageList
+				}
+				uni.setStorage({
+					key:'add-input',
+					data:JSON.stringify(obj)
+				})
 			}
 		}
 	}
