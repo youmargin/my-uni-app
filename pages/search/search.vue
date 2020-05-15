@@ -1,0 +1,27 @@
+<template>
+	<view>
+		<view class="py-2 font-md px-2">搜索历史</view>
+		<view class="flex flex-wrap">
+			<view class="border rounded font mx-2 my-1 px-2" 
+			v-for="(item,index) in list" :key="index"
+			hover-class="bg-light">{{item}}</view>
+		</view>
+	</view>
+</template>
+
+<script>
+	export default {
+		data() {
+			return {
+				list:['uni-app第二季商城类实战开发','uni-app第三季仿微信实战开发','实战教程','系列教程']
+			}
+		},
+		methods: {
+			
+		}
+	}
+</script>
+
+<style>
+
+</style>
