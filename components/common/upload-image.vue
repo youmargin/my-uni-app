@@ -8,8 +8,12 @@
 			<view class="uni-uploader-body">
 				<view class="uni-uploader__files">
 					<block v-for="(image,index) in imageList" :key="index">
-						<view class="uni-uploader__file">
+						<view class="uni-uploader__file position-relative">
 							<image class="uni-uploader__img rounded" :src="image" :data-src="image" @tap="previewImage" mode="aspectFill"></image>
+							
+							<view class="position-absolute top-0 right-0 rounded" style="padding: 0 15rpx;background-color: rgba(0,0,0,0.5);" @click.stop="deleteImage(index)">
+								<text class="iconfont icon-shanchu text-white"></text>
+							</view>
 						</view>
 					</block>
 					<view class="uni-uploader__input-box rounded">
@@ -54,6 +58,22 @@
 				this.countIndex = 8;
 		},
 		methods: {
+			// 删除图片
+			deleteImage(index){
+				uni.showModal({
+					title: '提示',
+					content: '是否要删除该图片？',
+					showCancel: true,
+					cancelText: '不删除',
+					confirmText: '删除',
+					success: res => {
+						if (res.confirm) {
+							this.imageList.splice(index,1)
+							this.$emit('change',this.imageList)
+						}
+					},
+				});
+			},
 			chooseImage: async function() {
 				// #ifdef APP-PLUS
 				// TODO 选择相机或相册时 需要弹出actionsheet，目前无法获得是相机还是相册，在失败回调中处理

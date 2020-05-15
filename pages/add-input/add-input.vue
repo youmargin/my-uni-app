@@ -8,7 +8,7 @@
 		<!-- 文本域 -->
 		<textarea v-model="content" placeholder="说一句话吧" class="uni-textarea px-2"/>
 		<!-- 多图上传 -->
-		<upload-image @choose="choose"></upload-image>
+		<upload-image @choose="choose" @change="changeImage"></upload-image>
 		<!-- 底部操作条 -->
 		<view class="fixed-bottom bg-white flex align-center" style="height: 85rpx;">
 			<view class="iconfont icon-caidan footer-btn animated"
@@ -40,7 +40,13 @@
 		methods: {
 			// 选中图片
 			choose(e){
-				this.imageList = e
+				this.imageList = e;
+				console.log(e);
+			},
+			// 选中图片
+			changeImage(e){
+				this.imageList = e;
+				console.log(e);
 			}
 		}
 	}
